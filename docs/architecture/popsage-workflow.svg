@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1120" viewBox="0 0 1400 1120" role="img" aria-labelledby="title desc">
+  <title id="title">PopSage v1 product workflow</title>
+  <desc id="desc">Three flows show knowledge upload, visitor question answering, and handoff to a human.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#64748b"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.lane{fill:#fff;stroke:#cbd5e1;stroke-width:2}.a{fill:#dbeafe;stroke:#2563eb}.b{fill:#dcfce7;stroke:#16a34a}.c{fill:#fef3c7;stroke:#d97706}.decision{fill:#f3e8ff;stroke:#9333ea}.node{stroke-width:2;rx:14}.line{fill:none;stroke:#64748b;stroke-width:2.5;marker-end:url(#arrow)}.title{font:700 30px system-ui,sans-serif;fill:#0f172a}.lane-title{font:700 19px system-ui,sans-serif;fill:#334155}.label{font:600 15px system-ui,sans-serif;fill:#0f172a;text-anchor:middle}.small{font:500 13px system-ui,sans-serif;fill:#475569;text-anchor:middle}.edge-label{font:600 13px system-ui,sans-serif;fill:#475569;text-anchor:middle}
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="1120"/>
+  <text class="title" x="50" y="55">PopSage v1 — product workflow</text>
+
+  <rect class="lane" x="40" y="90" width="400" height="940" rx="22"/>
+  <text class="lane-title" x="65" y="130">Flow A — upload knowledge</text>
+  <rect class="node a" x="85" y="175" width="310" height="70"/><text class="label" x="240" y="207">Request scoped upload URL</text><text class="small" x="240" y="228">from dashboard</text>
+  <rect class="node a" x="85" y="290" width="310" height="70"/><text class="label" x="240" y="333">Upload to private object storage</text>
+  <rect class="node a" x="85" y="405" width="310" height="70"/><text class="label" x="240" y="437">Validate, parse, and chunk</text><text class="small" x="240" y="458">durable background job</text>
+  <rect class="node a" x="85" y="520" width="310" height="70"/><text class="label" x="240" y="552">Create embeddings</text><text class="small" x="240" y="573">Cloudflare Workers AI initially</text>
+  <rect class="node a" x="85" y="635" width="310" height="70"/><text class="label" x="240" y="667">Store chunks + vectors</text><text class="small" x="240" y="688">workspace-scoped Postgres</text>
+  <rect class="node a" x="85" y="750" width="310" height="70"/><text class="label" x="240" y="793">Atomically mark document Ready</text>
+  <path class="line" d="M240 245 L240 290"/><path class="line" d="M240 360 L240 405"/><path class="line" d="M240 475 L240 520"/><path class="line" d="M240 590 L240 635"/><path class="line" d="M240 705 L240 750"/>
+
+  <rect class="lane" x="500" y="90" width="500" height="940" rx="22"/>
+  <text class="lane-title" x="525" y="130">Flow B — visitor asks a question</text>
+  <rect class="node b" x="560" y="165" width="380" height="62"/><text class="label" x="750" y="202">Restore session and send message</text>
+  <rect class="node b" x="560" y="260" width="380" height="62"/><text class="label" x="750" y="286">Validate origin, token, content, limits</text><text class="small" x="750" y="307">then persist message + outbox event</text>
+  <rect class="node decision" x="610" y="355" width="280" height="66"/><text class="label" x="750" y="394">Support intent?</text>
+  <rect class="node b" x="540" y="465" width="200" height="62"/><text class="label" x="640" y="502">Politely decline</text>
+  <rect class="node b" x="770" y="465" width="200" height="62"/><text class="label" x="870" y="492">Retrieve active</text><text class="small" x="870" y="513">knowledge chunks</text>
+  <rect class="node decision" x="730" y="570" width="280" height="66"/><text class="label" x="870" y="609">Evidence sufficient?</text>
+  <rect class="node b" x="730" y="680" width="280" height="70"/><text class="label" x="870" y="710">Generate grounded answer</text><text class="small" x="870" y="731">with source attribution</text>
+  <rect class="node b" x="730" y="795" width="280" height="70"/><text class="label" x="870" y="825">Validate grounding + state</text><text class="small" x="870" y="846">before exposing the answer</text>
+  <rect class="node b" x="590" y="910" width="320" height="70"/><text class="label" x="750" y="940">Persist reply + outbox event</text><text class="small" x="750" y="961">PartyServer delivers live event</text>
+  <path class="line" d="M750 227 L750 260"/><path class="line" d="M750 322 L750 355"/>
+  <path class="line" d="M680 421 C650 430 640 440 640 465"/><text class="edge-label" x="625" y="441">No</text>
+  <path class="line" d="M820 421 C850 430 870 440 870 465"/><text class="edge-label" x="875" y="441">Yes</text>
+  <path class="line" d="M870 527 L870 570"/><path class="line" d="M870 636 L870 680"/><text class="edge-label" x="895" y="660">Yes</text>
+  <path class="line" d="M870 750 L870 795"/><path class="line" d="M870 865 C870 890 830 900 805 910"/>
+  <path class="line" d="M640 527 C640 720 620 820 680 910"/>
+
+  <rect class="lane" x="1060" y="90" width="300" height="940" rx="22"/>
+  <text class="lane-title" x="1085" y="130">Flow C — human handoff</text>
+  <rect class="node c" x="1095" y="310" width="230" height="78"/><text class="label" x="1210" y="340">Enter WAITING_HUMAN</text><text class="small" x="1210" y="362">cancel pending AI reply</text>
+  <rect class="node c" x="1095" y="450" width="230" height="78"/><text class="label" x="1210" y="480">Show waiting state</text><text class="small" x="1210" y="502">and handoff reason</text>
+  <rect class="node c" x="1095" y="590" width="230" height="78"/><text class="label" x="1210" y="620">Teammate claims</text><text class="small" x="1210" y="642">atomically</text>
+  <rect class="node c" x="1095" y="730" width="230" height="78"/><text class="label" x="1210" y="760">HUMAN_ACTIVE</text><text class="small" x="1210" y="782">persist + publish reply</text>
+  <rect class="node c" x="1095" y="870" width="230" height="78"/><text class="label" x="1210" y="900">Close conversation</text><text class="small" x="1210" y="922">manual or 30-day inactivity</text>
+  <path class="line" d="M1210 388 L1210 450"/><path class="line" d="M1210 528 L1210 590"/><path class="line" d="M1210 668 L1210 730"/><path class="line" d="M1210 808 L1210 870"/>
+  <path class="line" d="M1010 603 C1050 603 1050 349 1095 349"/><text class="edge-label" x="1050" y="580">No</text>
+  <path class="line" d="M940 291 C1040 291 1035 330 1095 349"/><text class="edge-label" x="1018" y="280">human request / AI unavailable</text>
+
+  <text class="small" x="700" y="1080">Every message is persisted before realtime delivery; workspace isolation and authorization apply throughout.</text>
+</svg>

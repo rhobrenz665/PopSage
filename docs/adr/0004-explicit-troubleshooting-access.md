@@ -1,0 +1,5 @@
+# Separate platform operation from transcript access
+
+Accepted on 3 November 2026. Platform operators have no automatic entitlement to workspace conversation transcripts: troubleshooting requires explicit workspace-owner authorization, an auditable reason, and narrowly scoped access. Prefer metadata for routine operation, accepting the extra coordination during debugging to preserve the workspace privacy boundary.
+
+Authorization must identify the operator, workspace/conversations, purpose, and bounded access window; use, expiry, and revocation are auditable. A grant lasts no more than 24 hours, may be revoked immediately, and ends earlier when the transcript expires. Retain content-free grant/use/revocation audit metadata for 90 days; never copy transcript text into the audit record. Apply the boundary to application tools and address privileged provider-console/database access in the operational design. Training with one person in several roles must still exercise distinct identities and denial cases.

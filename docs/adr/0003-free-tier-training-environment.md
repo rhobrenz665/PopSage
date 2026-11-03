@@ -1,0 +1,11 @@
+# Build production-oriented boundaries within a free training environment
+
+Accepted on 3 November 2026; supersedes assumptions of an imminent real-business pilot. PopSage is a personal engineering training project using fictional businesses, sample sites, and approved test documents, with the project owner coordinating and testing. Initial infrastructure must target US$0/month; the US$50/month scenario is optional future planning, and no paid service may be purchased or activated without explicit approval.
+
+Preserve workspace isolation, authorization, durable conversation behavior, and recovery while keeping infrastructure small. Use environment-based configuration and narrow provider integration boundaries so future upgrades or substitutions do not require rewriting application policy. This favors quota-bounded training over claiming production capacity or buying infrastructure early; free-tier exhaustion must be visible and cannot silently trigger paid fallback.
+
+For Cloudflare AI, stop admitting new AI work at 80% of the estimated recurring daily allowance and allow at most two concurrent AI pipelines in training. Both limits are configuration and must be recalibrated from measured provider usage. Work already accepted must finish within its bounded deadline or hand off cleanly; human chat remains available. Never use OpenAI or another paid provider as an automatic quota fallback.
+
+Before any future account or resource creation, verify each provider’s free-plan eligibility, payment-method requirements, billing state, automatic upgrade/overage behavior, and quota-exhaustion behavior. If a payment method, paid activation, or automatic overage is required, stop and revise the plan before provisioning. A trial or promotional credit does not satisfy the recurring-free requirement.
+
+Provider changes may still require data migration or reindexing; configuration is not a substitute for those plans. Record service limits, billing exposure, hosting regions, and data destinations. Before real business/customer data, reassess privacy, residency, and compliance and require business representatives to validate answers. No implementation or provisioning is authorized by this decision.
