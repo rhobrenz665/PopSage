@@ -1,0 +1,16 @@
+"use client"
+import { useState } from "react"
+import { CopyIcon, LoaderCircleIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+export type InviteResult = { error?: string; url?: string; selector?: string }
+/** The server must authorize every request and bind the invitation to this email. */
+export function TeamInviteForm({ createInvitation, revokeInvitation }: { createInvitation: (email: string) => Promise<InviteResult>; revokeInvitation: (selector: string) => Promise<InviteResult> }) {
+  const [pending, setPending] = useState(false)
+  const [error, setError] = useState("")
+  const [url, setUrl] = useState("")
+  const [copied, setCopied] = useState(false)
+  const [selector, setSelector] = useState("")
+  return <form onSubmit={async (event) => { event.preventDefault(); const email = String(new FormData(event.currentTarget).get("invite-email")); setPending(true); setError(""); setUrl(""); setSelector(""); setCopied(false); try { const result = await createInvitation(email); if (result.error) setError(result.error); else if (result.url && result.selector) { setUrl(result.url); setSelector(result.selector) } else setError("No invitation link was returned. Please try again.") } catch { setError("We couldn’t create the invitation. Please try again.") } finally { setPending(false) } }} aria-busy={pending}><FieldGroup><Field><FieldLabel htmlFor="invite-email">Teammate’s email</FieldLabel><Input id="invite-email" name="invite-email" type="email" autoComplete="off" placeholder="teammate@company.com" required disabled={pending} /><FieldDescription>Only this email address can accept the invitation. Creating another link for the same address replaces the earlier link.</FieldDescription></Field>{error && <p role="alert" className="text-sm">{error}</p>}<Field><Button type="submit" variant="outline" disabled={pending}>{pending && <LoaderCircleIcon className="animate-spin" data-icon="inline-start" />}{pending ? "Creating invitation…" : "Create invitation link"}</Button></Field>{url && <Field><FieldLabel htmlFor="invitation-link">Invitation link</FieldLabel><Input id="invitation-link" value={url} readOnly /><div className="flex flex-wrap gap-2"><Button type="button" variant="glass" onClick={async () => { try { await navigator.clipboard.writeText(url); setCopied(true) } catch { setError("Select the invitation link and copy it manually.") } }}><CopyIcon data-icon="inline-start" />{copied ? "Copied" : "Copy invitation link"}</Button><Button type="button" variant="outline" disabled={pending} onClick={async () => { setPending(true); setError(""); try { const result = await revokeInvitation(selector); if (result.error) setError(result.error); else { setUrl(""); setSelector(""); setCopied(false) } } catch { setError("We couldn’t revoke the invitation.") } finally { setPending(false) } }}>Revoke link</Button></div><p role="status" className="text-xs text-muted-foreground">{copied ? "Link copied. Share it with your teammate." : "This link grants access only after your teammate signs in and accepts."}</p></Field>}</FieldGroup></form>
+}
