@@ -25,6 +25,7 @@ npm run build
 
 - [Product requirements](./docs/prds/README.md)
 - [Technology stack](./docs/architecture/tech-stack.md)
+- [Design system](./DESIGN.md)
 - [Architecture and workflow diagrams](./docs/architecture/diagrams.md)
 - [Domain glossary](./GLOSSARY.md)
 - [Architecture decisions](./docs/adr/)

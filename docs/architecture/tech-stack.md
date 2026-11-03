@@ -17,7 +17,7 @@
 |---|---|
 | App framework | Next.js 16.4.4, App Router, `src/` directory, Server Components by default |
 | Language | TypeScript 5, strict mode |
-| UI | Tailwind CSS 4 through Turbopack in development and PostCSS in production builds; reusable component primitives selected only when needed |
+| UI | Tailwind CSS 4 plus shadcn/ui Base/Nova primitives; Turbopack in development and PostCSS/Webpack in verified production builds |
 | Validation | Zod at untrusted boundaries; form library remains an implementation choice |
 | HTTP API | Next.js Route Handlers and application services; no client-to-database access |
 | Database | Neon Postgres with pgvector; Postgres is authoritative |
@@ -60,7 +60,8 @@ Directories beyond `src/app` are created with their first real module, not as em
 ## 3. Frontend
 
 - Use Next.js App Router and the `src/` directory. Server Components are the default; add Client Components only for browser state, forms, realtime connections, and other interactions.
-- Tailwind CSS 4 is installed. Do not add a second styling system.
+- Tailwind CSS 4 and shadcn/ui Base/Nova are installed. Extend the checked-in shadcn primitives and semantic tokens rather than creating parallel buttons, cards, dialogs, badges, or form controls.
+- Poppins is the product display/body face; Source Serif 4 is reserved for short italic emphasis. Both are self-hosted from pinned npm packages rather than fetched from Google at build time.
 - The dashboard and iframe widget share design tokens and accessible primitives while remaining separate route surfaces with different authorization contexts.
 - The widget is loaded in an iframe. The host-page loader owns first-party continuity and communicates with the iframe through a constrained, origin-checked channel.
 - Render visitor, teammate, model, and document-derived content as untrusted. Markdown rendering must sanitize output and never enable raw executable HTML.
@@ -226,7 +227,7 @@ No cloud target is provisioned by the Next.js bootstrap. Provisioning remains a 
 
 1. Typed SQL/ORM and migration tooling after the RLS/pgvector/serverless comparison.
 2. Exact Cloudflare models after free-tier evaluation.
-3. Zod, form, component, Markdown, test, parser, and storage-client versions when their first slice begins.
+3. Zod, form, Markdown, test, parser, and storage-client versions when their first slice begins. The component foundation is settled as shadcn/ui Base/Nova.
 4. Embed-loader bundler and stable asset-caching contract.
 5. Exact PartyServer event envelope, token claims, revocation signal, dispatcher cadence, and cursor compaction thresholds.
 6. Chunking, embedding dimensions, similarity thresholds, and index type after evaluation fixtures exist.
