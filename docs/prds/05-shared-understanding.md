@@ -14,7 +14,7 @@ The founder confirmed Q1–Q58 and the resulting PopSage planning baseline. The 
 - Reliability: Postgres is authoritative; transactional outbox, post-commit fast publication, retrying dispatcher, ordered idempotent streams, cursor recovery, poison-event quarantine, immutable accepted messages, and explicit conversation ownership.
 - AI safety: classify before answer, retrieve only active workspace sources, require material-claim support, hand off on insufficient/conflicting evidence, invalidate late AI work, pin exact models, promote manually through common evaluations, and never use automatic paid fallback.
 - Lifecycle: inactivity closure, abandonment versus resolution, transcript/session expiry, primary cleanup within 24 hours, documented provider backups, restricted troubleshooting, workspace/member/account deletion rules, and auditable sensitive actions.
-- Security/access: invite-only verified email/password team access, recent authentication for destructive/sensitive actions, origin-scoped anonymous visitor sessions, Ed25519 access tokens with current-state checks, exact HTTPS origin matching, rate/input limits, and immediate revocation.
+- Security/access: invitation-gated verified email/password, Google OAuth, and magic-link team authentication; membership remains separate; recent authentication for destructive/sensitive actions, origin-scoped anonymous visitor sessions, Ed25519 access tokens with current-state checks, exact HTTPS origin matching, rate/input limits, and immediate revocation.
 
 ## Engineering validation remaining
 

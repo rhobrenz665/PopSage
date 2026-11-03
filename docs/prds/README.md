@@ -176,9 +176,9 @@ These are planning decisions only.
 
 ### Q55–Q58 — final decisions and shared understanding, 3 November 2026
 
-- Owners and teammates use verified email/password authentication. Membership still requires an accepted workspace invitation. Public signup and social/OAuth login are excluded from the training MVP; password recovery uses development email only for fictional identities.
+- Owners and teammates can use verified email/password, Google OAuth, or magic-link authentication. Membership still requires an accepted workspace invitation, and signup is invitation-gated; password recovery and magic links use development email only for fictional identities.
 - Widget origins require exact normalized scheme, hostname, and port matching. HTTPS is mandatory except HTTP localhost during development. Wildcards and malformed/deceptive origin forms are rejected.
-- Account export, advanced conversation search, individual-message redaction, OAuth/social login, MFA, and external operational paging remain outside the training MVP. Reassess privacy/export, redaction, MFA, and operations before real users/data.
+- Account export, advanced conversation search, individual-message redaction, MFA, and external operational paging remain outside the training MVP. Reassess privacy/export, redaction, MFA, and operations before real users/data.
 - The founder confirms shared understanding of the product and architecture design tree. The product decision frontier is empty for this planning session.
 
 Exact schemas, SQL/RLS mechanics, token claims, retry/quarantine thresholds, key procedures, provider-account verification, backup schedules, and measured model results remain engineering validation. See [the shared-understanding handoff](05-shared-understanding.md). Local implementation is authorized; account creation, provisioning, deployment, paid activation, and real data are not.

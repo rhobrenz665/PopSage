@@ -21,7 +21,7 @@
 | Validation | Zod at untrusted boundaries; form library remains an implementation choice |
 | HTTP API | Next.js Route Handlers and application services; no client-to-database access |
 | Database | Neon Postgres with pgvector; Postgres is authoritative |
-| Database access | Server-side SQL transactions; application authorization plus Postgres RLS; exact typed query/migration library pending a focused decision |
+| Database access | Drizzle ORM/Kit for typed schema and migrations, `pg` for explicit server-side transactions; application authorization plus Postgres RLS |
 | Authentication | Neon Managed Better Auth for owners and teammates; PopSage membership authorization remains separate |
 | Visitor sessions | Rotating first-party opaque handle plus 15-minute Ed25519-signed iframe credentials |
 | Realtime | Cloudflare PartyServer + PartySocket; Postgres-backed cursor recovery |
@@ -97,9 +97,10 @@ Do not select an ORM only because the tutorial used Prisma. Before the database 
 
 ### Owners and teammates
 
-- Neon Managed Better Auth provides verified email/password identity and session verification.
-- No public signup, OAuth/social login, or automatic workspace creation in v1.
+- Neon Managed Better Auth provides verified email/password, Google OAuth, magic-link identity, password recovery, and session verification.
+- Signup remains invitation-gated. Google and magic-link authentication may create an identity only along an eligible invitation flow; identity creation never grants membership by itself.
 - Authentication alone grants no workspace access. Membership is created through an addressed, single-use, revocable invitation that expires after 72 hours.
+- PopSage never merges accounts from an unverified email match. Provider-supported linking must preserve verified-email and active-session safeguards.
 - Neon development email is for fictional training identities only. Review custom SMTP before real users.
 
 ### Visitors
@@ -190,7 +191,7 @@ The S3-compatible client and file parsers are selected when knowledge ingestion 
 - Use two fictional workspaces in isolation tests. Zero observed cross-workspace access and zero committed AI replies after handoff are release gates.
 - Do not claim model quality from mocks or contract tests. Live paid-provider evaluation requires explicit approval.
 
-Test runners are not installed yet. Prefer Vitest for TypeScript unit/integration tests and Playwright for browser tests unless the first testing slice reveals a material incompatibility.
+Vitest is installed for TypeScript unit and service tests. Add Playwright when repeatable browser automation lands; the current slice includes manual desktop/mobile browser verification.
 
 ## 13. Deployment and environments
 
