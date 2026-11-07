@@ -13,9 +13,24 @@ export default async function proxy(request: NextRequest) {
     return NextResponse.redirect(signInUrl)
   }
 
-  return getNeonAuth().middleware({ loginUrl: "/sign-in" })(request)
+  return getNeonAuth().middleware({
+    loginUrl: "/sign-in",
+    publicRoutes: [
+      "/",
+      "/check-email",
+      "/forgot-password",
+      "/invite",
+      "/login",
+      "/no-access",
+      "/reset-password",
+      "/sign-in",
+      "/sign-up",
+    ],
+  })(request)
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|map|woff|woff2)$).*)",
+  ],
 }
