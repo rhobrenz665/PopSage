@@ -185,7 +185,7 @@ function HeroLanding() {
                 variant="glass"
                 size="sm"
                 nativeButton={false}
-                render={<a href="#product" />}
+                render={<Link href="/sign-in" />}
               >
                 Sign in
               </Button>
